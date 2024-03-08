@@ -1,35 +1,11 @@
 import { useState } from 'react';
-import { styled } from 'styled-components';
 
-const ControlledContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-`;
-const Label = styled.label`
-  width: 100%;
-  padding: 0.75rem 1rem;
-  line-height: 1.5;
-  background-color: #d1d5db;
-  color: ${({invalid} )=> invalid ? '#f87171' : '#6b7280'}
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+import Button from './Button';
+import Input from './Input';
 
 
-`;
 
-const Input = styled.div`
-  width: 100%;
-  padding: 0.75rem 1rem;
-  line-height: 1.5;
-  background-color: #d1d5db;
-  color: #374151;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-`;
+
 
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState('');
@@ -52,33 +28,27 @@ export default function AuthInputs() {
   const passwordNotValid = submitted && enteredPassword.trim().length < 6;
 
   return (
-    <div id="auth-inputs">
-      <ControlledContainer>
-        <p>
-          <Label invalid>email</Label>
-          <Input>
-            type="email"
-            className={emailNotValid ? 'invalid' : undefined}
-            onChange={(event) => handleInputChange('email', event.target.value)}
-          </Input>
-        </p>
-        <p>
-          <Label>Password</Label>
-          <Input>
-            type="password"
-            className={passwordNotValid ? 'invalid' : undefined}
-            onChange={(event) =>
-              handleInputChange('password', event.target.value)
-            }
-          </Input>
-        </p>
-      </ControlledContainer>
-      <div className="actions">
-        <button type="button" className="text-button">
-          Create a new account
+    <div id="auth-inputs " className='w-full max-w-sm px-8 mx-auto rounded shadow-md bg-gradient-to-b from-stone-700 to-stone-800'>
+      <div className='flex flex-col gap-2 mb-4'>
+        <Input label='email ' invalid={emailNotValid} type='text' onChange={(event) =>
+          handleInputChange('email', event.target.value)
+        }></Input>
+
+        <Input label='email ' invalid={passwordNotValid} type='password' onChange={(event) =>
+          handleInputChange('password', event.target.value)
+        }></Input>
+
+      </div>
+
+      
+      <div className='flex justify-end gap-4'>
+
+        <button type='button' className='text-amber-400 hover:text-amber-500'>
+          Create Account
         </button>
-        <button className='button' onClick={handleLogin}>Sign In</button>
+        <Button className='button' onClick={handleLogin}>Sign In</Button>
       </div>
     </div>
+
   );
 }
